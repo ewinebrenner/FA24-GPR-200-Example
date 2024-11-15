@@ -38,8 +38,10 @@ namespace ew {
 		Mesh(const MeshData& meshData);
 		void load(const MeshData& meshData);
 		void draw(DrawMode drawMode = DrawMode::TRIANGLES)const;
+		void drawInstanced(DrawMode drawMode, unsigned int instanceCount)const;
 		inline int getNumVertices()const { return m_numVertices; }
 		inline int getNumIndices()const { return m_numIndices; }
+		void bind() const;
 	private:
 		bool m_initialized = false;
 		unsigned int m_vao = 0;

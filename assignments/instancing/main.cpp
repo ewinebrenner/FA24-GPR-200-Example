@@ -53,7 +53,7 @@ bool wireFrame = false;
 bool pointRender = false;
 
 const float FIELD_RADIUS = 50;
-const int MAX_SPHERE_COUNT = 100000;
+const int MAX_SPHERE_COUNT = 1000000;
 int sphereCount = MAX_SPHERE_COUNT/2;
 
 int main() {
@@ -111,7 +111,7 @@ int main() {
 	glVertexAttribDivisor(3, 1); //Per instance
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	ew::Shader litShader = ew::Shader("assets/lit.vert", "assets/lit.frag");
+	ew::Shader litShader = ew::Shader("assets/litInstanced.vert", "assets/lit.frag");
 	ew::Shader unlitShader = ew::Shader("assets/unlit.vert", "assets/unlit.frag");
 	unsigned int brickTex = ew::loadTexture("assets/earth.jpg", GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR);
 	glEnable(GL_DEPTH_TEST);

@@ -81,14 +81,18 @@ int main() {
 	//Initialization goes here!
 	ew::MeshData cubeMeshData;
 	ew::MeshData planeMeshData;
+	ew::MeshData sphereMeshData;
 	ew::createCube(1.0f, &cubeMeshData);
 	ew::createPlaneXY(10.0f, 10.0f, 5, &planeMeshData);
+	ew::createSphere(2.0f, 256, &sphereMeshData);
+
 	ew::Mesh cubeMesh = ew::Mesh(cubeMeshData);
 	ew::Mesh planeMesh = ew::Mesh(planeMeshData);
+	ew::Mesh sphereMesh = ew::Mesh(sphereMeshData);
 
 	ew::Shader litShader = ew::Shader("assets/lit.vert", "assets/lit.frag");
 	ew::Shader unlitShader = ew::Shader("assets/unlit.vert", "assets/unlit.frag");
-	unsigned int brickTex = ew::loadTexture("assets/brick.png", GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR);
+	unsigned int brickTex = ew::loadTexture("assets/earth.jpg", GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
@@ -131,6 +135,15 @@ int main() {
 		planeTransform = glm::translate(planeTransform,glm::vec3(-5.0,-5.0,0.0));
 		litShader.setMat4("_Model", planeTransform);
 		planeMesh.draw(drawMode);
+
+		{
+			//Draw plane
+			glm::mat4 transform = glm::mat4(1);
+			//planeTransform = glm::rotate(planeTransform, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			transform = glm::translate(transform, glm::vec3(3.0, 3.0, 0.0));
+			litShader.setMat4("_Model", transform);
+			sphereMesh.draw(drawMode);
+		}
 
 		//Draw light source as cube
 		glm::mat4 model = glm::mat4(1.0f);
